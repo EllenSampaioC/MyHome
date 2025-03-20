@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>MyHome - Entrar</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header id="header">
+        <img src="img/logo.svg" alt="Logo" class="logo">
+        <nav>
+            <a href="/static/contato.html" target="_blank" class="contato-btn">Contato</a>
+            <a href="/static/cadastra-se.html" target="_blank" class="cadastro-btn">Cadastra-se</a>
+            <a href="/static/entrar.html" target="_blank" class="entrar-btn">Entre</a>
+        </nav>
+    </header>
+
+    <section class="login-section">
+        <h1>Entrar</h1>
+        <form id="login-form">
+            <label><i class="fas fa-envelope"></i> Email:
+                <input type="email" name="email" placeholder="Digite seu email" required>
+            </label>
+            <label><i class="fas fa-lock"></i> Senha:
+                <input type="password" name="senha" placeholder="Digite sua senha" required>
+            </label>
+            <button type="submit">Entrar</button>
+            <p id="login-msg"></p>
+        </form>
+        <p class="link-extra"><a href="/static/cadastra-se.html">Não tem conta? Cadastre-se</a></p>
+    </section>
+
+    <footer>
+        <p>© 2025 MyHome - Todos os direitos reservados</p>
+        <div class="footer-links">
+            <a href="#">Sobre</a> | <a href="#">Termos</a> | <a href="#">Privacidade</a>
+        </div>
+        <p class="feito-por">Feito por Ellen Sampaio</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shrink');
+            } else {
+                header.classList.remove('shrink');
+            }
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = {
+                email: formData.get('email'),
+                senha: formData.get('senha')
+            };
+
+            fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('login-msg').textContent = result.message || 'Login realizado com sucesso!';
+                document.getElementById('login-msg').style.color = '#16a085';
+            })
+            .catch(error => {
+                document.getElementById('login-msg').textContent = 'Erro ao fazer login. Tente novamente.';
+                document.getElementById('login-msg').style.color = '#e74c3c';
+                console.error('Erro:', error);
+            });
+        });
+    </script>
+</body>
+</html>

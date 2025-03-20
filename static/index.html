@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>MyHome - Busca de Imóveis</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header id="header">
+        <img src="img/logo.svg" alt="Logo" class="logo">
+        <nav>
+            <a href="/static/contato.html" target="_blank" class="contato-btn">Contato</a>
+            <a href="/static/cadastra-se.html" target="_blank" class="cadastro-btn">Cadastra-se</a>
+            <a href="/static/entrar.html" target="_blank" class="entrar-btn">Entre</a>
+        </nav>
+    </header>
+    <div class="container">
+        <aside class="filtro-lateral">
+            <h2>Filtros</h2>
+            <form id="busca-form">
+                <label><i class="fas fa-dollar-sign"></i> Preço Máximo: 
+                    <input type="number" name="preco_max" placeholder="Ex.: 2000">
+                </label>
+                <label><i class="fas fa-map-marker-alt"></i> Localização: 
+                    <input type="text" name="localizacao" placeholder="Ex.: São Paulo">
+                </label>
+                <label><i class="fas fa-home"></i> Tipo: 
+                    <select name="tipo">
+                        <option value="">Qualquer</option>
+                        <option value="Apartamento">Apartamento</option>
+                        <option value="Casa">Casa</option>
+                    </select>
+                </label>
+                <label><i class="fas fa-shopping-cart"></i> Objetivo: 
+                    <select name="objetivo">
+                        <option value="alugar">Alugar</option>
+                        <option value="comprar">Comprar</option>
+                    </select>
+                </label>
+                <div class="filtro-buttons">
+                    <button type="submit"><i class="fas fa-search"></i> Filtrar</button>
+                    <button type="button" id="limpar-busca"><i class="fas fa-times"></i> Limpar Busca</button>
+                </div>
+            </form>
+        </aside>
+        <main class="lista-imoveis">
+            <section id="resultados">
+                <h2>Todos os Imóveis</h2>
+                <!-- Imóveis serão carregados aqui -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal de Agendamento -->
+    <div id="modal-agendamento" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModal('modal-agendamento')">×</span>
+            <h2>Agendar Visita</h2>
+            <form id="agendamento-form">
+                <label>Imóvel: <span id="imovel-nome"></span></label>
+                <input type="hidden" name="imovel_id" id="imovel-id">
+                <label>Data: 
+                    <select name="data_visita">
+                        <option value="2025-03-20">20/03/2025</option>
+                        <option value="2025-03-21">21/03/2025</option>
+                        <option value="2025-03-22">22/03/2025</option>
+                    </select>
+                </label>
+                <label>Horário: 
+                    <select name="horario">
+                        <option value="10:00">10:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="16:00">16:00</option>
+                    </select>
+                </label>
+                <button type="submit">Confirmar Agendamento</button>
+            </form>
+            <p id="agendamento-msg"></p>
+        </div>
+    </div>
+
+    <!-- Chatbot -->
+    <div id="chatbot" class="chatbot">
+        <button id="chatbot-toggle" class="chatbot-bolinha" onclick="toggleChat()">
+            <i class="fas fa-comment"></i>
+        </button>
+        <div id="chatbot-body" class="chatbot-body">
+            <div class="chatbot-header">Ajuda Imobiliária</div>
+            <div id="chat-messages"></div>
+            <input type="text" id="chat-input" placeholder="Digite sua dúvida...">
+            <button onclick="enviarMensagem()">Enviar</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 MyHome - Todos os direitos reservados</p>
+        <div class="footer-links">
+            <a href="#">Sobre</a> | <a href="#">Termos</a> | <a href="#">Privacidade</a>
+        </div>
+        <p class="feito-por">Feito por Ellen Sampaio</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shrink');
+            } else {
+                header.classList.remove('shrink');
+            }
+        });
+
+        // Redireciona o filtro para a mesma página com parâmetros
+        document.getElementById('busca-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const params = new URLSearchParams(formData).toString();
+            window.location.href = `/static/index.html?${params}`;
+        });
+    </script>
+</body>
+</html>

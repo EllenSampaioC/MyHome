@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>MyHome - Contato</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="img/logo.svg" alt="Logo" class="logo">
+        <nav>
+            <a href="/static/contato.html" target="_blank" class="contato-btn">Contato</a>
+            <a href="/static/contato.html" target="_blank" class="cadastro-btn">Cadastra-se</a>
+            <a href="/static/contato.html" target="_blank" class="entrar-btn">Entre</a>
+        </nav>
+    </header>
+    <main>
+        <section class="contato-section">
+            <h1>Fale Conosco</h1>
+            <form id="contato-form">
+                <label>Nome: 
+                    <input type="text" name="nome" placeholder="Seu nome" required>
+                </label>
+                <label>E-mail: 
+                    <input type="email" name="email" placeholder="seu@email.com" required>
+                </label>
+                <label>Assunto: 
+                    <textarea name="assunto" placeholder="Digite sua mensagem..." required></textarea>
+                </label>
+                <button type="submit">Enviar</button>
+            </form>
+            <p id="contato-msg"></p>
+        </section>
+    </main>
+    
+
+    <footer>
+        <p>© 2025 MyHome - Todos os direitos reservados</p>
+        <div class="footer-links">
+            <a href="#">Sobre</a> | <a href="#">Termos</a> | <a href="#">Privacidade</a>
+        </div>
+        <p class="feito-por">Feito por Ellen Sampaio</p>
+    </footer>
+
+    <script>
+        document.getElementById('contato-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('contato-msg').textContent = 'Mensagem enviada com sucesso! Entraremos em contato em breve.';
+            this.reset();
+        });
+    </script>
+</body>
+</html>
